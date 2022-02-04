@@ -21,6 +21,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "actions_enabled" {
+  description = "Enable all alarms from publishing to SNS"
+  type = bool
+  default = true
+}
+
 
 ########################################
 # SNS-Related Variables

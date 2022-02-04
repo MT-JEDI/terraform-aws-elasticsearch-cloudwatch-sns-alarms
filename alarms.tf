@@ -25,6 +25,7 @@ resource "aws_cloudwatch_metric_alarm" "cluster_status_is_red" {
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
   treat_missing_data  = "ignore"
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -48,6 +49,7 @@ resource "aws_cloudwatch_metric_alarm" "cluster_status_is_yellow" {
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
   treat_missing_data  = "ignore"
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -71,6 +73,7 @@ resource "aws_cloudwatch_metric_alarm" "free_storage_space_too_low" {
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
   treat_missing_data  = "ignore"
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -95,6 +98,7 @@ resource "aws_cloudwatch_metric_alarm" "free_storage_space_total_too_low" {
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
   treat_missing_data  = "ignore"
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -120,6 +124,7 @@ resource "aws_cloudwatch_metric_alarm" "cluster_index_writes_blocked" {
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
   treat_missing_data  = "ignore"
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -143,6 +148,7 @@ resource "aws_cloudwatch_metric_alarm" "insufficient_available_nodes" {
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
   treat_missing_data  = "ignore"
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -166,6 +172,7 @@ resource "aws_cloudwatch_metric_alarm" "automated_snapshot_failure" {
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
   treat_missing_data  = "ignore"
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -188,6 +195,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_utilization_too_high" {
   alarm_description   = "Average elasticsearch cluster CPU utilization above ${local.thresholds["CPUUtilizationThreshold"]} over last ${floor(var.alarm_cpu_utilization_too_high_periods * var.alarm_cpu_utilization_too_high_period / 60)} minute(s) too high"
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -210,6 +218,7 @@ resource "aws_cloudwatch_metric_alarm" "jvm_memory_pressure_too_high" {
   alarm_description   = "Elasticsearch JVM memory pressure is over ${local.thresholds["JVMMemoryPressureThreshold"]} over the last ${floor(var.alarm_jvm_memory_pressure_too_high_periods * var.alarm_jvm_memory_pressure_too_high_period / 60)} minute(s)"
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -232,6 +241,7 @@ resource "aws_cloudwatch_metric_alarm" "master_cpu_utilization_too_high" {
   alarm_description   = "Average elasticsearch cluster master CPU utilization above ${local.thresholds["MasterCPUUtilizationThreshold"]} over last ${floor(var.alarm_master_cpu_utilization_too_high_periods * var.alarm_master_cpu_utilization_too_high_period / 60)} minute(s) too high"
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -254,6 +264,7 @@ resource "aws_cloudwatch_metric_alarm" "master_jvm_memory_pressure_too_high" {
   alarm_description   = "Elasticsearch JVM memory pressure is over ${local.thresholds["MasterJVMMemoryPressureThreshold"]} over the last ${floor(var.alarm_master_jvm_memory_pressure_too_high_periods * var.alarm_master_jvm_memory_pressure_too_high_period / 60)} minute(s)"
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
+  actions_enabled     = var.actions_enabled
   tags                = var.tags
 
   dimensions = {
@@ -276,6 +287,7 @@ resource "aws_cloudwatch_metric_alarm" "kms_key_error" {
   alarm_description   = "Elasticsearch KMS Key Error failed over last ${floor(var.alarm_kms_periods * var.alarm_kms_period / 60)} minute(s)"
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
+  actions_enabled     = var.actions_enabled
   treat_missing_data  = "ignore"
   tags                = var.tags
 
@@ -299,6 +311,7 @@ resource "aws_cloudwatch_metric_alarm" "kms_key_inaccessible" {
   alarm_description   = "Elasticsearch KMS Key Inaccessible failed over last ${floor(var.alarm_kms_periods * var.alarm_kms_period / 60)} minute(s)"
   alarm_actions       = [local.aws_sns_topic_arn]
   ok_actions          = [local.aws_sns_topic_arn]
+  actions_enabled     = var.actions_enabled
   treat_missing_data  = "ignore"
   tags                = var.tags
 
