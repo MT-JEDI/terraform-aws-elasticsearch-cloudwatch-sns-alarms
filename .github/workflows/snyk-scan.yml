@@ -1,0 +1,25 @@
+name: Validate Pull Request - Snyk Scan
+
+on:
+  pull_request:
+    branches: [ master ]
+
+env:
+  SNYK_SAST_SEV_CODE: "high"
+  SNYK_SAST_SEV_IAC:  "high"
+  SNYK_SAST_SEV_SCA:  "critical"
+
+jobs:
+  snyk-iac-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Snyk Test IaC
+        uses: snyk/actions/iac@master
+        continue-on-error: false
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+          args:  |
+            --severity-threshold=${{ env.SNYK_SAST_SEV_IAC }}

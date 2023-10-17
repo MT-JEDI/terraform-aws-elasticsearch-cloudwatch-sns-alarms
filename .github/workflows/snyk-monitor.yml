@@ -1,0 +1,28 @@
+name: Snyk Monitoring
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+env:
+  SNYK_SAST_TEAM: "JEDI"
+  SNYK_SAST_SCMORG: ${{ github.repository_owner }}
+  SNYK_SAST_SCMREPO: ${{ github.event.repository.name }}
+  SNYK_SAST_PROJECT: "3rd-party"
+  SNYK_SAST_LIFECYCLE: "production"
+  SNYK_SAST_SEV_IAC:  "high"
+
+jobs:
+  snyk-iac-test:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - name: Snyk Test IaC
+          uses: snyk/actions/iac@master
+          continue-on-error: false
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          with:
+            command: test
+            args: --severity-threshold=${{ env.SNYK_SAST_SEV_IAC }} --report --tags=scmhost=github,scmorg=${{ env.SNYK_SAST_SCMORG }},scmrepo=${{ env.SNYK_SAST_SCMREPO }},team=${{ env.SNYK_SAST_TEAM }},project=${{ env.SNYK_SAST_PROJECT }} --target-reference=${{ github.ref_name }} --project-lifecycle=${{ env.SNYK_SAST_LIFECYCLE }}
